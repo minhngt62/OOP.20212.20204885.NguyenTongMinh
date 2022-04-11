@@ -1,4 +1,0 @@
-- What happens if users choose "Cancel"?
-You have chosen "No"
-- How to customize the options to users?
-Use JOptionPane.showOptionDialog()
