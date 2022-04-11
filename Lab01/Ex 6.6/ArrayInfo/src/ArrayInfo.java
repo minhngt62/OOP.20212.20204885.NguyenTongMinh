@@ -8,6 +8,7 @@ public class ArrayInfo {
 			arr[i] = sc.nextInt();
 		}
 		int sum = 0;
+		// insertion sort
 		for (int i=1; i<n; i++) {
 			int key = arr[i];
 			int j = i-1;
