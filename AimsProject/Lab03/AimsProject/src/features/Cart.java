@@ -29,4 +29,22 @@ public class Cart {
 		}
 		return totalCost;
 	}
+	
+	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
+		boolean isRemoved = false;
+		for (int i=0; i < MAX_NUMBERS_ORDERED; i++) {
+			if (disc.getTitle() == itemsOrdered[i].getTitle()) {
+				for (int j=i+1; j < MAX_NUMBERS_ORDERED; j++) {
+					itemsOrdered[j-1] = itemsOrdered[j]; // shift discs to fill the empty slot
+				}
+				System.out.println("The disc has been removed");
+				isRemoved = true;
+				break;
+			}
+		}
+		if (isRemoved == false) {
+			System.out.println("The cart does not have this disc");
+			itemsOrdered[MAX_NUMBERS_ORDERED - 1] = null;
+		}
+	}
 }
