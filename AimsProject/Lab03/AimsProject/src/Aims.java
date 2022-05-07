@@ -28,6 +28,12 @@ public class Aims {
 		anOrder.removeDigitalVideoDisc(dvd1);
 		System.out.println("The total cost is: ");
 		System.out.println(anOrder.totalCost());
+		
+		//test method overloading
+		anOrder.removeDigitalVideoDisc(dvd2);
+		anOrder.addDigitalVideoDisc(dvd1, dvd2);
+		System.out.println("The total cost is: ");
+		System.out.println(anOrder.totalCost());
 	}
 
 }
