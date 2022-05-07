@@ -1,0 +1,18 @@
+1. If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by 
+category. Does JAVA allow you to do this?
+
+Answer: When I do that, Java will display a light bulb with a cross on the bottom left, saying that the method
+(constructor) is duplicated. This means Java marks it as an error and will prevent the run of program later. 
+Things could be different a bit when I try to test these constructors through Aims.java. It actually returned a 
+window notifying me that there were errors in project(s) AimsProject but still gave an option to proceed the launch.
+And when the run was proceed, the observation derived was interesting since the attribute title is filled and
+category was set as null. (the constructor of title is put over the constructor of category)
+
+2. Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for dvd. 
+Compared to an array parameter. What do you prefer in this case?
+
+Answer: In this case, I guess that the question try to mention "varargs" vs array. As far as I know, they are quite
+the same since java is actually making an array of arguments and passing it when var args is used. But varargs is 
+kind of implicit and array is more explicit on the other hand. It can be unexpected consequences, used wrong. 
+They can strip away some of the type safety I may have had with the original array argument. For example, a 2D array
+could be a trouble to varargs.
