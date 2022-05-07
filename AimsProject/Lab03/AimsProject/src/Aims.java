@@ -23,6 +23,11 @@ public class Aims {
 		//print total cost of the items in the cart
 		System.out.println("The total cost is: ");
 		System.out.println(anOrder.totalCost());
+		
+		//test the method removeDigitalVideoDisc of the Cart
+		anOrder.removeDigitalVideoDisc(dvd1);
+		System.out.println("The total cost is: ");
+		System.out.println(anOrder.totalCost());
 	}
 
 }
