@@ -1,5 +1,5 @@
-package tester;
-import features.DigitalVideoDisc
+package testers;
+import features.DigitalVideoDisc;
 
 public class TestPassingParameter {
     public static void main(String[] args) {
@@ -8,7 +8,7 @@ public class TestPassingParameter {
 
         swap(jungleDVD, cinderellaDVD);
         System.out.println("jungle dvd title: " + jungleDVD.getTitle());
-        System.out.println("cinderella dvd title: " + cinderella.getTitle());
+        System.out.println("cinderella dvd title: " + cinderellaDVD.getTitle());
 
         changeTitle(jungleDVD, cinderellaDVD.getTitle());
         System.out.println("jungle dvd title: " + jungleDVD.getTitle());
