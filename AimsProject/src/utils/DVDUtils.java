@@ -1,0 +1,39 @@
+package utils;
+import features.DigitalVideoDisc;
+
+public class DVDUtils {
+	public static boolean compareByCost(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+		return dvd1.getCost() == dvd2.getCost();
+	}
+	public static boolean compareByTitle(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+		return dvd1.getTitle().equals(dvd2.getTitle());
+	}
+	
+	public static DigitalVideoDisc[] sortByTitle(DigitalVideoDisc[] dvdList) {
+		for (int i=1; i<dvdList.length; i++) {
+			DigitalVideoDisc key = dvdList[i];
+			int j = i - 1;
+			while (j >= 0 && dvdList[j].getTitle().compareTo(key.getTitle()) > 0) {
+				dvdList[j+1] = dvdList[j];
+				j = j - 1;
+			}
+			dvdList[j+1] = key;
+		}
+		return dvdList;
+	}
+	
+	public static DigitalVideoDisc[] sortByCost(DigitalVideoDisc[] dvdList) {
+		for (int i=1; i<dvdList.length; i++) {
+			DigitalVideoDisc key = dvdList[i];
+			int j = i - 1;
+			while (j >= 0 && dvdList[j].getCost() > key.getCost()) {
+				dvdList[j+1] = dvdList[j];
+				j = j - 1;
+			}
+			dvdList[j+1] = key;
+		}
+		return dvdList;
+	}
+	
+	
+}
