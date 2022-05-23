@@ -119,4 +119,17 @@ public class Cart {
 		System.out.println("Total cost: " + this.totalCost());
 		System.out.println("**************************************************");
 	}
+	
+	public void searchByTitle(String title) {
+		int count = 0;
+		for (DigitalVideoDisc d : itemsOrdered) {
+			if (d != null && d.isMatch(title)) {
+				count++;
+				System.out.println("Found a DVD of the ID: " + d);
+			}
+		}
+		if (count == 0) {
+			System.out.println("Cannot find any DVD of the ID!");
+		}
+	}
 }
