@@ -1,4 +1,5 @@
 package features;
+import utils.DVDUtils;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
@@ -61,5 +62,60 @@ public class Cart {
 			System.out.println("The cart does not have this disc");
 			itemsOrdered[MAX_NUMBERS_ORDERED - 1] = null;
 		}
+	}
+	
+	public void sortByCost() {
+		System.out.println("***********************CART***********************");
+		System.out.println("Ordered Items:");
+		int index = 0;
+		itemsOrdered = DVDUtils.sortByCost(itemsOrdered);
+		for (DigitalVideoDisc d : itemsOrdered) {
+			if (d != null) {
+				index++;
+				System.out.println(index + ". " + d);
+			}
+		}
+		System.out.println("Total cost: " + this.totalCost());
+		System.out.println("**************************************************");
+	}
+	public void sortByTitle() {
+		System.out.println("***********************CART***********************");
+		System.out.println("Ordered Items:");
+		int index = 0;
+		itemsOrdered = DVDUtils.sortByTitle(itemsOrdered);
+		for (DigitalVideoDisc d : itemsOrdered) {
+			if (d != null) {
+				index++;
+				System.out.println(index + ". " + d);
+			}
+		}
+		System.out.println("Total cost: " + this.totalCost());
+		System.out.println("**************************************************");
+	}
+	public void searchById(int id) {
+		int count = 0;
+		for (DigitalVideoDisc d : itemsOrdered) {
+			if (d != null && d.getId() == id) {
+				count++;
+				System.out.println("Found a DVD of the ID: " + d);
+			}
+		}
+		if (count == 0) {
+			System.out.println("Cannot find any DVD of the ID!");
+		}
+	}
+	public void print() {
+		System.out.println("***********************CART***********************");
+		System.out.println("Ordered Items:");
+		int index = 0;
+		itemsOrdered = DVDUtils.sortByTitleCostLength(itemsOrdered);
+		for (DigitalVideoDisc d : itemsOrdered) {
+			if (d != null) {
+				index++;
+				System.out.println(index + ". " + d);
+			}
+		}
+		System.out.println("Total cost: " + this.totalCost());
+		System.out.println("**************************************************");
 	}
 }
