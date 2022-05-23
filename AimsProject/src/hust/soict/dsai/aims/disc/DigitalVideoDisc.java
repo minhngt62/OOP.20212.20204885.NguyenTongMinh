@@ -78,4 +78,14 @@ public class DigitalVideoDisc {
 	public String toString() {
 		return "DVD" + " - " + title + " - " + category + " - " + director + " - " + length + ": " + cost + " $"; 
 	}
+	
+	public boolean isMatch(String title) {
+		String[] tokens = title.split(" ", 0);
+		for (String token : tokens) {
+			if (this.title.contains(token)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
