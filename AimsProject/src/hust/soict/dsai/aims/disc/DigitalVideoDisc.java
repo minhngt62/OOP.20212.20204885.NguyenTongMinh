@@ -88,4 +88,8 @@ public class DigitalVideoDisc {
 		}
 		return false;
 	}
+	
+	public boolean equals(DigitalVideoDisc dvd) {
+		return (dvd.getId() == this.id);
+	}
 }
