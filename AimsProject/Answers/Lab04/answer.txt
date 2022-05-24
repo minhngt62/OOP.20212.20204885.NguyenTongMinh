@@ -13,3 +13,6 @@ The function changeTitle() then applies a method of the object on itself, which 
 Also notice that the formal reference is changed to a new object with old title. However the actual object stays remain.
 The actual reference still points to that object, whose title has been changed.
 This means when we get title from jungleDVD, we will see it was changed.
+
+4. Write a toString() method for the DigitalVideoDisc class. What should be the return type of this method?
+The return type should be String.
