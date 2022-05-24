@@ -70,4 +70,52 @@ public class DVDUtils {
 		return dvdList;
 	}
 	
+	public static DigitalVideoDisc[] sortByTitleCost(DigitalVideoDisc[] dvdList) {
+		for (int i=1; i<dvdList.length; i++) {
+			DigitalVideoDisc key = dvdList[i];
+			if (key == null) {
+				continue;
+			}
+			int j = i - 1;
+			while (j >= 0 && dvdList[j].getTitle().compareTo(key.getTitle()) >= 0) {
+				if (compareByTitle(dvdList[j], key)) {
+					if (dvdList[j].getCost() < key.getCost()) {
+						dvdList[j+1] = dvdList[j];
+						j = j - 1;
+					}
+				} else {
+					dvdList[j+1] = dvdList[j];
+					j = j - 1;
+				}
+				
+			}
+			dvdList[j+1] = key;
+		}
+		return dvdList;
+	}
+	
+	public static DigitalVideoDisc[] sortByCostTitle(DigitalVideoDisc[] dvdList) {
+		for (int i=1; i<dvdList.length; i++) {
+			DigitalVideoDisc key = dvdList[i];
+			if (key == null) {
+				continue;
+			}
+			int j = i - 1;
+			while (j >= 0 && dvdList[j].getCost() <= key.getCost()) {
+				if (compareByCost(dvdList[j], key)) {
+					if (dvdList[j].getTitle().compareTo(key.getTitle()) > 0) {
+						dvdList[j+1] = dvdList[j];
+						j = j - 1;
+					}
+				} else {
+					dvdList[j+1] = dvdList[j];
+					j = j - 1;
+				}
+				
+			}
+			dvdList[j+1] = key;
+		}
+		return dvdList;
+	}
+	
 }

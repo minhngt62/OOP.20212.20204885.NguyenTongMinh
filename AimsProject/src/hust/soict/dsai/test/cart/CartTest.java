@@ -28,7 +28,7 @@ public class CartTest {
 		cart.sortByTitle();
 		
 		//Test the search by id
-		cart.searchById(3);
+		cart.search(3);
 	}
 
 }

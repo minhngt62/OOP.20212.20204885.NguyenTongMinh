@@ -19,7 +19,7 @@ public class DiskTest {
 		cart.addDigitalVideoDisc(dvd3);
 		
 		//Test searchByTitle method
-		cart.searchByTitle("Aladin of Star");
+		cart.search("Aladin of Star");
 		
 		//Test isMatch method
 		System.out.println(dvd1.isMatch("Aladin of Star"));
