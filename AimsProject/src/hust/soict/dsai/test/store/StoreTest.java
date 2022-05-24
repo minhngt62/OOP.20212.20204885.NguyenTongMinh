@@ -10,15 +10,10 @@ public class StoreTest {
 				"Roger Allers", 87, 19.95f);
 		//Test addDVD method
 		store.addDVD(dvd1);
-		for (DigitalVideoDisc d : store.getItemsInStore()) {
-			System.out.println(d);
-		}
+		store.print();
 		
 		//Test removeDVD method
 		store.removeDVD(dvd1);
-		for (DigitalVideoDisc d : store.getItemsInStore()) {
-			System.out.println(d);
-		}
-		
+		store.print();
 	}
 }
