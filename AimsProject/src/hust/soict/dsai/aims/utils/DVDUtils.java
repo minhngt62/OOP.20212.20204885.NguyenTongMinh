@@ -1,5 +1,5 @@
 package hust.soict.dsai.aims.utils;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 public class DVDUtils {
 	public static boolean compareByCost(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
