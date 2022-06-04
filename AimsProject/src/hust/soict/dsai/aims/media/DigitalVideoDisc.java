@@ -18,51 +18,37 @@ public class DigitalVideoDisc extends Media {
 		return length;
 	}
 	public DigitalVideoDisc(String title) {
-		super();
-		this.title = title;
+		super(title);
 		this.dateAdded = LocalDate.now();
 		nbDigitalVideoDiscs++;
-		this.id = nbDigitalVideoDiscs;
 	}
 	public DigitalVideoDisc(String title, String category, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
-		this.cost = cost;
+		super(title, category, cost);
 		this.dateAdded = LocalDate.now();
 		nbDigitalVideoDiscs++;
-		this.id = nbDigitalVideoDiscs;
 	}
 	public DigitalVideoDisc(String title, String category, String director, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
+		super(title, category, cost);
 		this.director = director;
-		this.cost = cost;
 		this.dateAdded = LocalDate.now();
 		nbDigitalVideoDiscs++;
-		this.id = nbDigitalVideoDiscs;
 	}
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
+		super(title, category, cost);
 		this.director = director;
 		this.length = length;
-		this.cost = cost;
 		this.dateAdded = LocalDate.now();
 		nbDigitalVideoDiscs++;
-		this.id = nbDigitalVideoDiscs;
 	}
 	
 	public String toString() {
-		return "DVD" + " - " + title + " - " + category + " - " + director + " - " + length + ": " + cost + " $"; 
+		return "DVD" + " - " + super.getTitle() + " - " + super.getCategory() + " - " + director + " - " + length + ": " + super.getCost() + " $"; 
 	}
 	
 	public boolean isMatch(String title) {
 		String[] tokens = title.split(" ", 0);
 		for (String token : tokens) {
-			if (this.title.contains(token)) {
+			if (super.getTitle().contains(token)) {
 				return true;
 			}
 		}
@@ -70,6 +56,6 @@ public class DigitalVideoDisc extends Media {
 	}
 	
 	public boolean equals(DigitalVideoDisc dvd) {
-		return (dvd.getId() == this.id);
+		return (dvd.getId() == super.getId());
 	}
 }
