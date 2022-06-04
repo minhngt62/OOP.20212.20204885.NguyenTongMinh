@@ -1,67 +1,24 @@
 package hust.soict.dsai.aims.store;
-import hust.soict.dsai.aims.disc.*;
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.*;
+import java.util.ArrayList;
 
 public class Store {
-	private DigitalVideoDisc[] itemsInStore = new DigitalVideoDisc[0];
+	private ArrayList<Media> itemsInStore = 
+			new ArrayList<Media>();
 	
-	public void print() {
-		System.out.println("***********************STORE***********************");
-		System.out.println("Items in Store:");
-		int index = 0;
-		for (DigitalVideoDisc d : itemsInStore) {
-			if (d != null) {
-				index++;
-				System.out.println(index + ". " + d);
-			}
-		}
-		System.out.println("**************************************************");
+	public int addMedia(Media media) {
+		itemsInStore.add(media);
+		System.out.println("The media has been added");
+		return 1;
 	}
 	
-	public void addDVD(DigitalVideoDisc dvd) {
-		DigitalVideoDisc[] newItemsInStore = new DigitalVideoDisc[itemsInStore.length + 1];
-		for (int i=0; i<itemsInStore.length; i++) {
-			newItemsInStore[i] = itemsInStore[i];
+	public int removeMedia(Media media) {
+		if (itemsInStore.contains(media)) {
+			itemsInStore.remove(media);
+			System.out.println("The media has been removed from the store");
+			return 1;
 		}
-		newItemsInStore[itemsInStore.length] = dvd;
-		itemsInStore = newItemsInStore;
-		System.out.println("Added to the store: " + dvd);
-	}
-	
-	public void removeDVD(DigitalVideoDisc dvd) {
-		int remove_pos = -1;
-		for (int i=0; i<itemsInStore.length; i++) {
-			if (itemsInStore[i].equals(dvd)) {
-				itemsInStore[i] = null;
-				remove_pos = i;
-				break;
-			}
-		}
-		if (remove_pos != -1) {
-			for (int i=remove_pos; i<itemsInStore.length - 1; i++) {
-				itemsInStore[i] = itemsInStore[i+1];
-				itemsInStore[i+1] = null;
-			}
-			DigitalVideoDisc[] newItemsInStore = new DigitalVideoDisc[itemsInStore.length - 1];
-			for (int i=0; i<itemsInStore.length - 1; i++) {
-				newItemsInStore[i] = itemsInStore[i];
-			}
-			itemsInStore = newItemsInStore;
-			System.out.println("Remove from the store: " + dvd);
-		} else {
-			System.out.println("There is no such DVDs in the store.");
-		}
-		
-	}
-	
-	public DigitalVideoDisc getDVD(String title) {
-		DigitalVideoDisc targetDVD = null;
-		for (DigitalVideoDisc d : itemsInStore) {
-			if (d != null && d.getTitle().equals(title)) {
-				targetDVD = d;
-				break;
-			}
-		}
-		return targetDVD;
+		System.out.println("The media is not in the store");
+		return 0;
 	}
 }
