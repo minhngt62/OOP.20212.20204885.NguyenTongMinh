@@ -1,64 +1,17 @@
 package hust.soict.dsai.aims.cart;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.utils.DVDUtils;
+import java.util.ArrayList;
+import hust.soict.dsai.aims.media.Media;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
-	private DigitalVideoDisc itemsOrdered[] = 
-			new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
-	
-	public DigitalVideoDisc[] getItemsOrdered() {
-		int count = 0;
-		for (DigitalVideoDisc d : itemsOrdered) {
-			if (d != null) {
-				count++;
-			}
-		}
-		DigitalVideoDisc[] cleanedItemsOrdered = new DigitalVideoDisc[count];
-		for (int i=0; i<itemsOrdered.length; i++) {
-			if (itemsOrdered[i] != null) {
-				cleanedItemsOrdered[i] = itemsOrdered[i];
-			}
-		}
-		return cleanedItemsOrdered;
-	}
-	public void setItemsOrdered(DigitalVideoDisc[] dvdList) {
-		this.itemsOrdered = dvdList;
-	}
-	
-	public int addDigitalVideoDisc(DigitalVideoDisc disc) {
-		for (int i=0; i < MAX_NUMBERS_ORDERED; i++) {
-			if (itemsOrdered[i] == null) {
-				itemsOrdered[i] = disc;
-				System.out.println("The disc has been added");
-				return 1;
-			}
-		}
-		System.out.println("The cart is almost full");
-		return 0;
-	}
-	public int addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
-		int count = 0;
-		int i = 0;
-		while (i < dvdList.length) {
-			int numDisc = addDigitalVideoDisc(dvdList[i]);
-			if (numDisc == 0) {
-				break;
-			}
-			count += numDisc;
-			i++;
-		}
-		return count;
-	}
-	public int addDigitalVideoDisc(DigitalVideoDisc dvd1,DigitalVideoDisc dvd2) {
-		DigitalVideoDisc[] dvdList = {dvd1, dvd2};
-		int count = addDigitalVideoDisc(dvdList);
-		return count;
-	}
+	private ArrayList<Media> itemsOrdered = new
+			ArrayList<Media>();
 	
 	public float totalCost() {
 		float totalCost = 0;
-		for (DigitalVideoDisc d : itemsOrdered) {
+		for (Media d : itemsOrdered) {
 			if (d != null) {
 				totalCost += d.getCost();
 			}
@@ -66,23 +19,42 @@ public class Cart {
 		return totalCost;
 	}
 	
-	public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
-		int isRemoved = 0;
-		for (int i=0; i < MAX_NUMBERS_ORDERED; i++) {
-			if (disc.getTitle() == itemsOrdered[i].getTitle()) {
-				for (int j=i+1; j < MAX_NUMBERS_ORDERED; j++) {
-					itemsOrdered[j-1] = itemsOrdered[j]; // shift discs to fill the empty slot
-				}
-				System.out.println("The disc has been removed");
-				isRemoved = 1;
-				break;
+	public int addMedia(Media media) {
+		if (itemsOrdered.size() <  MAX_NUMBERS_ORDERED) {
+			itemsOrdered.add(media);
+			System.out.println("The media has been added to the cart");
+			return 1;
+		}
+		System.out.println("The cart is almost full");
+		return 0;
+	}
+	public int addMedia(Media media1, Media media2) {
+		int countAdded = 0;
+		countAdded += addMedia(media1);
+		countAdded += addMedia(media2);
+		return countAdded;
+	}
+	public int addMedia(ArrayList<Media> medias) {
+		int countAdded = 0;
+		for (int i=0; i<medias.size(); i++) {
+			int isAdded = addMedia(medias.get(i));
+			if (isAdded == 0) {
+				return countAdded;
+			} else {
+				countAdded += isAdded;
 			}
 		}
-		if (isRemoved == 0) {
-			System.out.println("The cart does not have this disc");
-			itemsOrdered[MAX_NUMBERS_ORDERED - 1] = null;
+		return countAdded;
+	}
+	
+	public int removeMedia(Media media) {
+		if (itemsOrdered.contains(media)) {
+			itemsOrdered.remove(media);
+			System.out.println("The media has been removed from the cart");
+			return 1;
 		}
-		return isRemoved;
+		System.out.println("The media is not in the cart");
+		return 0;
 	}
 	
 	public void print() {
