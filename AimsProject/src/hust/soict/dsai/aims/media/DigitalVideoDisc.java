@@ -1,7 +1,7 @@
 package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
-public class DigitalVideoDisc extends Media {
+public class DigitalVideoDisc extends Disc implements Playable {
 	private String director;
 	private int length;
 	private LocalDate dateAdded;
@@ -42,20 +42,11 @@ public class DigitalVideoDisc extends Media {
 	}
 	
 	public String toString() {
-		return "DVD" + " - " + super.getTitle() + " - " + super.getCategory() + " - " + director + " - " + length + ": " + super.getCost() + " $"; 
+		return "DVD" + " - " + this.getTitle() + " - " + this.getCategory() + " - " + director + " - " + length + ": " + this.getCost() + " $"; 
 	}
 	
-	public boolean isMatch(String title) {
-		String[] tokens = title.split(" ", 0);
-		for (String token : tokens) {
-			if (super.getTitle().contains(token)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean equals(DigitalVideoDisc dvd) {
-		return (dvd.getId() == super.getId());
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
 	}
 }
