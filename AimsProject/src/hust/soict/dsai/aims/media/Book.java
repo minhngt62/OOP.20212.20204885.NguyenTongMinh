@@ -4,8 +4,11 @@ import java.util.ArrayList;
 public class Book extends Media {
 	private ArrayList<String> authors = new ArrayList<String>();
 	
-	public Book() {
-		
+	public Book(String title) {
+		super(title);
+	}
+	public Book(String title, String category, float cost) {
+		super(title, category, cost);
 	}
 
 	public ArrayList<String> getAuthors() {
