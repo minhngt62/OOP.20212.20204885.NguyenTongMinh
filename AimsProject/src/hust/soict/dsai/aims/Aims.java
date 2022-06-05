@@ -1,8 +1,10 @@
 package hust.soict.dsai.aims;
-import hust.soict.dsai.aims.cart.Cart;
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.cart.Cart; 
+import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
+import java.util.ArrayList;
 import java.util.Scanner;
+import hust.soict.dsai.aims.utils.*;
 
 public class Aims {
 
@@ -12,15 +14,15 @@ public class Aims {
 		
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation",
 				"Roger Allers", 87, 19.95f);
-		store.addDVD(dvd1);
+		store.addMedia(dvd1);
 		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction",
 				"George Lucas", 87, 19.95f);
-		store.addDVD(dvd2);
+		store.addMedia(dvd2);
 		
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation",
 				18.99f);
-		store.addDVD(dvd3);
+		store.addMedia(dvd3);
 		
 		//Setup cart
 		Cart cart = new Cart();
@@ -56,19 +58,19 @@ public class Aims {
 					System.out.println("Insert the title: ");
 					user.nextLine(); //consume blank
 					String title = user.nextLine();
-					DigitalVideoDisc dvd = store.getDVD(title);
+					Media dvd = store.getMedia(title);
 					//check validity and print details
 					if (dvd == null) {
 						System.out.println("Invalid title!");
 					} else {
-						System.out.println("Details of the DVD: " + dvd);
+						System.out.println("Details of the media: " + dvd);
 					}
 					//add option
 					while (dvd != null) {
-						System.out.println("Add that DVD to your cart? (Y/N): ");
+						System.out.println("Add that media to your cart? (Y/N): ");
 						String addOption = user.next();
 						if (addOption.equals("Y")) {
-							cart.addDigitalVideoDisc(dvd);
+							cart.addMedia(dvd);
 							break;
 						} else if (addOption.equals("N")) {
 							break;
@@ -83,16 +85,15 @@ public class Aims {
 				}
 				
 				while (storeOption == 2) {
-					System.out.println("Enter the title of the DVD: ");
+					System.out.println("Enter the title of the media: ");
 					user.nextLine(); //consume blank
 					String title = user.nextLine();
-					DigitalVideoDisc dvd = store.getDVD(title);
-					//check validity and add DVD to cart
+					Media dvd = store.getMedia(title);
+					//check validity and print details
 					if (dvd == null) {
 						System.out.println("Invalid title!");
 					} else {
-						cart.addDigitalVideoDisc(dvd);
-						System.out.println("The number of DVDs in the cart: " + cart.getItemsOrdered().length);
+						cart.addMedia(dvd);
 					}
 					//back to store menu
 					System.out.println("Insert any key to continue...");
@@ -152,14 +153,16 @@ public class Aims {
 						} 
 						
 						else if (sortOption == 1) {
-							cart.sortByTitleCost();
+							MediaUtils.sortByTitleCost(cart.getItemsOrdered());
+							cart.print();
 							//back to sort menu
 							System.out.println("Insert any key to continue...");
 							user.next(); //wait for the user
 						} 
 						
 						else if (sortOption == 2) {
-							cart.sortByCostTitle();
+							MediaUtils.sortByCostTitle(cart.getItemsOrdered());
+							cart.print();
 							//back to sort menu
 							System.out.println("Insert any key to continue...");
 							user.next(); //wait for the user
@@ -170,13 +173,13 @@ public class Aims {
 						System.out.println("Insert the title: ");
 						user.nextLine(); //consume blank
 						String title = user.nextLine();
-						DigitalVideoDisc[] cartDVDs = cart.getItemsOrdered();
-						for (DigitalVideoDisc d : cartDVDs) {
+						ArrayList<Media> cartDVDs = cart.getItemsOrdered();
+						for (Media d : cartDVDs) {
 							if (d.getTitle().equals(title)) {
-								cart.removeDigitalVideoDisc(d);
+								cart.removeMedia(d);
 							}
 						}
-						System.out.println("The number of DVDs in the cart: " + cart.getItemsOrdered().length);
+						System.out.println("The number of medias in the cart: " + cart.getItemsOrdered().size());
 						System.out.println("Insert any key to continue...");
 						user.next(); //wait for the user
 						break;
@@ -185,7 +188,8 @@ public class Aims {
 					//place order
 					while (cartOption == 4) {
 						System.out.println("An order is created.");
-						cart.setItemsOrdered(new DigitalVideoDisc[Cart.MAX_NUMBERS_ORDERED]);
+						cart.getALuckyItem();
+						cart.getItemsOrdered().clear();
 						//back to cart menu
 						System.out.println("Insert any key to continue...");
 						user.next(); //wait for the user
@@ -209,17 +213,14 @@ public class Aims {
 					System.out.println("Please insert the details of the DVD: ");
 					System.out.println("--------------------------------");
 					System.out.println("Title: ");
-					String title = user.next();
+					user.nextLine(); //consume blank
+					String title = user.nextLine();
 					System.out.println("Category: ");
-					String category = user.next();
-					System.out.println("Director: ");
-					String director = user.next();
-					System.out.println("Length: ");
-					int length = user.nextInt();
+					String category = user.nextLine();
 					System.out.println("Cost: ");
 					float cost = user.nextFloat();
-					DigitalVideoDisc dvd = new DigitalVideoDisc(title, category, director, length, cost);
-					store.addDVD(dvd);
+					DigitalVideoDisc dvd = new DigitalVideoDisc(title, category, cost);
+					store.addMedia(dvd);
 					//back to update menu
 					System.out.println("Insert any key to continue...");
 					user.next(); //wait for the user
@@ -231,8 +232,8 @@ public class Aims {
 					System.out.println("Insert the title: ");
 					user.nextLine(); //consume blank
 					String title = user.nextLine();
-					DigitalVideoDisc dvd = store.getDVD(title);
-					store.removeDVD(dvd);
+					Media dvd = store.getMedia(title);
+					store.removeMedia(dvd);
 					//back to update menu
 					System.out.println("Insert any key to continue...");
 					user.next(); //wait for the user
@@ -293,14 +294,16 @@ public class Aims {
 					} 
 					
 					else if (sortOption == 1) {
-						cart.sortByTitleCost();
+						MediaUtils.sortByTitleCost(cart.getItemsOrdered());
+						cart.print();
 						//back to sort menu
 						System.out.println("Insert any key to continue...");
 						user.next(); //wait for the user
 					} 
 					
 					else if (sortOption == 2) {
-						cart.sortByCostTitle();
+						MediaUtils.sortByCostTitle(cart.getItemsOrdered());
+						cart.print();
 						//back to sort menu
 						System.out.println("Insert any key to continue...");
 						user.next(); //wait for the user
@@ -311,13 +314,13 @@ public class Aims {
 					System.out.println("Insert the title: ");
 					user.nextLine(); //consume blank
 					String title = user.nextLine();
-					DigitalVideoDisc[] cartDVDs = cart.getItemsOrdered();
-					for (DigitalVideoDisc d : cartDVDs) {
+					ArrayList<Media> cartDVDs = cart.getItemsOrdered();
+					for (Media d : cartDVDs) {
 						if (d.getTitle().equals(title)) {
-							cart.removeDigitalVideoDisc(d);
+							cart.removeMedia(d);
 						}
 					}
-					System.out.println("The number of DVDs in the cart: " + cart.getItemsOrdered().length);
+					System.out.println("The number of DVDs in the cart: " + cart.getItemsOrdered().size());
 					System.out.println("Insert any key to continue...");
 					user.next(); //wait for the user
 					break;
@@ -326,7 +329,8 @@ public class Aims {
 				//place order
 				while (cartOption == 4) {
 					System.out.println("An order is created.");
-					cart.setItemsOrdered(new DigitalVideoDisc[Cart.MAX_NUMBERS_ORDERED]);
+					cart.getALuckyItem();
+					cart.getItemsOrdered().clear();
 					//back to cart menu
 					System.out.println("Insert any key to continue...");
 					user.next(); //wait for the user
@@ -340,8 +344,8 @@ public class Aims {
 	public static void storeMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. See a DVD details");
-		System.out.println("2. Add a DVD to cart");
+		System.out.println("1. See a media details");
+		System.out.println("2. Add a media to cart");
 		System.out.println("3. See current cart");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
@@ -350,9 +354,9 @@ public class Aims {
 	public static void cartMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Filter DVDs in the cart");
-		System.out.println("2. Sort DVDs in cart");
-		System.out.println("3. Remove DVD from cart");
+		System.out.println("1. Filter medias in the cart");
+		System.out.println("2. Sort medias in cart");
+		System.out.println("3. Remove media from cart");
 		System.out.println("4. Place order");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
@@ -371,8 +375,8 @@ public class Aims {
 	public static void updateStoreMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Add a DVD to the store");
-		System.out.println("2. Remove a DVD from the store");
+		System.out.println("1. Add a media to the store");
+		System.out.println("2. Remove a media from the store");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2");
@@ -380,8 +384,8 @@ public class Aims {
 	public static void filterCartMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Filter DVDs by id");
-		System.out.println("2. Filter DVDs by title");
+		System.out.println("1. Filter medias by id");
+		System.out.println("2. Filter medias by title");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2");
@@ -389,8 +393,8 @@ public class Aims {
 	public static void sortCartMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Sort DVDs by title");
-		System.out.println("2. Sort DVDs by cost");
+		System.out.println("1. Sort medias by title");
+		System.out.println("2. Sort medias by cost");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2");
