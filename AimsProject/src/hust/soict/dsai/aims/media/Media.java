@@ -45,5 +45,24 @@ public abstract class Media {
 		nbMedia++;
 		this.id = nbMedia;
 	}
+	
+	public boolean equals(Media media) {
+		return media.getTitle().equals(this.title);
+	}
+	
+	public String toString() {
+		return "Media" + " - " + this.title + " - " + this.category + ": " + this.cost + " $"; 
+	}
+
+	
+	public boolean isMatch(String title) {
+		String[] tokens = title.split(" ", 0);
+		for (String token : tokens) {
+			if (this.getTitle().contains(token)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
