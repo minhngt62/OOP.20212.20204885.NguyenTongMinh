@@ -46,8 +46,12 @@ public abstract class Media {
 		this.id = nbMedia;
 	}
 	
-	public boolean equals(Media media) {
-		return media.getTitle().equals(this.title);
+	public boolean equals(Object o) {
+		if (o instanceof Media | o instanceof Disc | o instanceof Book) {
+			return ((Media)o).getTitle().equals(this.title);
+		}
+		return false;
+		
 	}
 	
 	public String toString() {
