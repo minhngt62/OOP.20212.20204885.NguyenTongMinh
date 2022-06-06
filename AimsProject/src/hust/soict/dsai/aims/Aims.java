@@ -5,10 +5,17 @@ import hust.soict.dsai.aims.store.Store;
 import java.util.ArrayList;
 import java.util.Scanner;
 import hust.soict.dsai.aims.utils.*;
+import java.lang.Thread;
 
 public class Aims {
 
 	public static void main(String[] args) {
+		//Thread practice
+		MemoryDaemon daemon = new MemoryDaemon();
+		Thread t1 = new Thread(daemon);
+		t1.setDaemon(true);
+		t1.start();
+		
 		//Setup store
 		Store store = new Store();
 		
