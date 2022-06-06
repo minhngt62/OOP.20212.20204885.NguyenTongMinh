@@ -21,8 +21,11 @@ public class Track implements Playable {
 		this.length = length;
 	}
 	
-	public boolean equals(Track track) {
-		return this.title.equals(track.title);
+	public boolean equals(Object o) {
+		if (o instanceof Track) {
+			return this.title.equals(((Track)o).title);
+		}
+		return false;
 	}
 	
 	public void play() {
