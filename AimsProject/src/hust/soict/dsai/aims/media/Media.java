@@ -48,7 +48,7 @@ public abstract class Media {
 	
 	public boolean equals(Object o) {
 		if (o instanceof Media) {
-			return ((Media)o).getTitle().equals(this.title);
+			return ((Media)o).getId() == this.id;
 		}
 		return false;
 		

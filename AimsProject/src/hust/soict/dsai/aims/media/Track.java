@@ -23,7 +23,8 @@ public class Track implements Playable {
 	
 	public boolean equals(Object o) {
 		if (o instanceof Track) {
-			return this.title.equals(((Track)o).title);
+			return this.title.equals(((Track)o).getTitle()) && 
+					this.length == ((Track)o).getLength();
 		}
 		return false;
 	}
@@ -32,5 +33,4 @@ public class Track implements Playable {
 		System.out.println("Playing track: " + this.getTitle());
 		System.out.println("Track length: " + this.getLength());
 	}
-
 }
