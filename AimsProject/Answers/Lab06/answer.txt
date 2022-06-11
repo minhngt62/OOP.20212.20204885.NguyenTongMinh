@@ -1,2 +1,7 @@
 1. Which method(s) do you need to implement from this interface (Comparable)?
-Method, which is needed to implement, is compareTo()
+Method, which is needed to implement, is compareTo().
+
+2. What happens and explain it in detail? (Question in section 6)
+Even though the objects is upcasted to Media, the print still shows that the implementation of toString() 
+is different across the objects. In particular, they call the implementations based on the types of objects
+(e.g. CD calls it own implementation for toString(), not the general toString() in Media).

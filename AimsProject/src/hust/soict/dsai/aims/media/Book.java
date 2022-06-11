@@ -3,9 +3,15 @@ import java.util.ArrayList;
 
 public class Book extends Media {
 	private ArrayList<String> authors = new ArrayList<String>();
+	private int length;
 	
-	public Book(String title) {
+	public Book(String title, int length) {
 		super(title);
+		this.length = length;
+	}
+	public Book(String title, String category, float cost, int length) {
+		super(title, category, cost);
+		this.length = length;
 	}
 	public Book(String title, String category, float cost) {
 		super(title, category, cost);
@@ -13,6 +19,9 @@ public class Book extends Media {
 
 	public ArrayList<String> getAuthors() {
 		return authors;
+	}
+	public int getLength() {
+		return this.length;
 	}
 	
 	
@@ -30,6 +39,11 @@ public class Book extends Media {
 		} else {
 			System.out.println("This author is not in the list");
 		}
+	}
+	
+	public String toString() {
+		return this.getTitle() + "-" + this.getCategory() + "-" + this.authors
+				+ this.length;
 	}
 
 }
