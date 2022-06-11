@@ -45,6 +45,19 @@ public class TestMediaCompareTo {
 		}
 		
 		System.out.println("-----------------------------------");
+		
+		Collections.sort((List<Media>)collection, Media.COMPARE_BY_COST_TITLE);
+		
+		iterator = collection.iterator();
+		
+		System.out.println("-----------------------------------");
+		System.out.println("The medias in sorted order (cost-title) are: ");
+		
+		while (iterator.hasNext()) {
+			System.out.println(((Media)iterator.next()).getTitle());
+		}
+		
+		System.out.println("-----------------------------------");
 	}
 
 }
