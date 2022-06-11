@@ -1,6 +1,6 @@
 package hust.soict.dsai.aims.cart;
-import java.util.ArrayList;
-import hust.soict.dsai.aims.media.Media;
+import java.util.ArrayList; 
+import hust.soict.dsai.aims.media.*;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
@@ -109,6 +109,17 @@ public class Cart {
 		}
 		if (count == 0) {
 			System.out.println("Cannot find any DVD of the title!");
+		}
+	}
+	
+	public void playMedia(String title) {
+		for (Media d : itemsOrdered) {
+			if (d.getTitle().equals(title)) {
+				if (d instanceof Playable) {
+					((Playable)d).play();
+					break;
+				}
+			}
 		}
 	}
 	

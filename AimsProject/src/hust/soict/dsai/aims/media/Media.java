@@ -47,7 +47,7 @@ public abstract class Media {
 	}
 	
 	public boolean equals(Object o) {
-		if (o instanceof Media | o instanceof Disc | o instanceof Book) {
+		if (o instanceof Media) {
 			return ((Media)o).getTitle().equals(this.title);
 		}
 		return false;
@@ -68,5 +68,4 @@ public abstract class Media {
 		}
 		return false;
 	}
-
 }
