@@ -70,11 +70,11 @@ public abstract class Media implements Comparable<Media>{
 	}
 	
 	public int compareTo(Media d) {
-		int titleDiff = d.getTitle().compareTo(this.getTitle());
+		int titleDiff = this.getTitle().compareTo(d.getTitle());
 		if (titleDiff != 0) {
 			return titleDiff;
 		} else {
-			return d.getCategory().compareTo(this.getCategory());
+			return this.getCategory().compareTo(d.getCategory());
 		}
 	}
 }
