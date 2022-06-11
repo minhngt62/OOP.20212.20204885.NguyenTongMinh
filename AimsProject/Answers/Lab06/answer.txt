@@ -1,0 +1,2 @@
+1. Which method(s) do you need to implement from this interface (Comparable)?
+Method, which is needed to implement, is compareTo()

@@ -1,7 +1,7 @@
 package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
-public abstract class Media {
+public abstract class Media implements Comparable<Media>{
 	private int id;
 	private String title;
 	private String category;
@@ -67,5 +67,14 @@ public abstract class Media {
 			}
 		}
 		return false;
+	}
+	
+	public int compareTo(Media d) {
+		int titleDiff = d.getTitle().compareTo(this.getTitle());
+		if (titleDiff != 0) {
+			return titleDiff;
+		} else {
+			return d.getCategory().compareTo(this.getCategory());
+		}
 	}
 }
