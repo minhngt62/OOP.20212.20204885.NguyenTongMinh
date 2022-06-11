@@ -202,6 +202,28 @@ public class Aims {
 						user.next(); //wait for the user
 						break;
 					}
+					
+					while (cartOption == 5) {
+						System.out.println("Insert the title: ");
+						user.nextLine(); //consume blank
+						String title = user.nextLine();
+						cart.playMedia(title);
+						//back to cart menu
+						System.out.println("Insert any key to continue...");
+						user.next(); //wait for the user
+						break;
+					}
+				}
+				
+				while (storeOption == 4) {
+					System.out.println("Insert the title: ");
+					user.nextLine(); //consume blank
+					String title = user.nextLine();
+					store.playMedia(title);
+					//back to cart menu
+					System.out.println("Insert any key to continue...");
+					user.next(); //wait for the user
+					break;
 				}
 			}
 			
@@ -343,6 +365,17 @@ public class Aims {
 					user.next(); //wait for the user
 					break;
 				}
+				
+				while (cartOption == 5) {
+					System.out.println("Insert the title: ");
+					user.nextLine(); //consume blank
+					String title = user.nextLine();
+					cart.playMedia(title);
+					//back to cart menu
+					System.out.println("Insert any key to continue...");
+					user.next(); //wait for the user
+					break;
+				}
 			}
 		}
 		user.close();
@@ -354,9 +387,10 @@ public class Aims {
 		System.out.println("1. See a media details");
 		System.out.println("2. Add a media to cart");
 		System.out.println("3. See current cart");
+		System.out.println("4. Play a media");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
-		System.out.println("Please choose a number: 0-1-2-3");
+		System.out.println("Please choose a number: 0-1-2-3-4");
 	}
 	public static void cartMenu() {
 		System.out.println("Options: ");
@@ -365,9 +399,10 @@ public class Aims {
 		System.out.println("2. Sort medias in cart");
 		System.out.println("3. Remove media from cart");
 		System.out.println("4. Place order");
+		System.out.println("5. Play a media");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
-		System.out.println("Please choose a number: 0-1-2-3");
+		System.out.println("Please choose a number: 0-1-2-3-4-5");
 	}
 	public static void showMenu() {
 		System.out.println("AIMS: ");

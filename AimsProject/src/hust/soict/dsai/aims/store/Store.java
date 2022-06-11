@@ -43,4 +43,15 @@ public class Store {
 		}
 		return null;
 	}
+	
+	public void playMedia(String title) {
+		for (Media d : itemsInStore) {
+			if (d.getTitle().equals(title)) {
+				if (d instanceof Playable) {
+					((Playable)d).play();
+					break;
+				}
+			}
+		}
+	}
 }
