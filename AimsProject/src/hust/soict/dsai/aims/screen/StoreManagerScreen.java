@@ -11,17 +11,16 @@ import java.awt.event.*;
 
 public class StoreManagerScreen extends JFrame {
 	private Store store;
-	private JPanel centerComponent;
-	
+	JPanel centerPanel;
 	
 	public StoreManagerScreen(Store store) {
 		this.store = store;
-		
+
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
-		this.centerComponent = createCenter();
 		cp.add(createNorth(), BorderLayout.NORTH);
-		cp.add(this.centerComponent, BorderLayout.CENTER);
+		centerPanel = createCenter();
+		cp.add(centerPanel, BorderLayout.CENTER);
 		
 		setTitle("Store");
 		setSize(1024, 768);
@@ -100,15 +99,15 @@ public class StoreManagerScreen extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
 			if (command.equals("Add DVD")) {
-				new AddDigitalVideoDiscToStoreScreen(store, centerComponent);
+				new AddDigitalVideoDiscToStoreScreen(store);
 			} else if (command.equals("Add Book")) {
-				new AddBookToStoreScreen(store, centerComponent);
+				new AddBookToStoreScreen(store);
 			} else if (command.equals("Add CD")) {
-				new AddBookToStoreScreen(store, centerComponent);
+				new AddCompactDiscToStoreScreen(store);
 			} else if (command.equals("View Store")) {
-				new StoreScreen(store);
-				dispose();
+				new StoreManagerScreen(store);
 			}
+			dispose();
 		}
 	}
 	
