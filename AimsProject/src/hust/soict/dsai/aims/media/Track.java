@@ -29,8 +29,12 @@ public class Track implements Playable {
 		return false;
 	}
 	
-	public void play() {
+	public StringBuffer play() {
 		System.out.println("Playing track: " + this.getTitle());
 		System.out.println("Track length: " + this.getLength());
+		
+		StringBuffer info = new StringBuffer("");
+		info.append("Playing track: " + this.getTitle() + "\n" + "Track length: " + this.getLength());
+		return info;
 	}
 }

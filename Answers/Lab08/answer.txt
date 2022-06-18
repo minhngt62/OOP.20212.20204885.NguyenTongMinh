@@ -1,0 +1,3 @@
+1. The resulting appearances of the applications developed using Swing and AWT might be different as well. Make comparisons. (1.3)
+In my perspective, Swing-based GUI looks more clearly when AWT does not (both the frame and the panel have the same color)
+Furthermore, I can edit the appearance of text field Accumulated Sum in AWT-based when with Swing-based, it cannot.
