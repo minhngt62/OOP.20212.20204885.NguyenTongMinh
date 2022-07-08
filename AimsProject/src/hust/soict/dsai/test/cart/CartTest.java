@@ -1,10 +1,10 @@
 package hust.soict.dsai.test.cart;
 import java.util.ArrayList;
 
-import javax.naming.LimitExceededException;
 import javax.swing.JOptionPane;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.LimitExceededException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.utils.MediaUtils;

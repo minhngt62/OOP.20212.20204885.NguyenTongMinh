@@ -1,12 +1,12 @@
 package hust.soict.dsai.aims;
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.LimitExceededException;
 import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.naming.LimitExceededException;
 import javax.swing.JOptionPane;
 
 import hust.soict.dsai.aims.utils.*;
