@@ -1,9 +1,10 @@
 package hust.soict.dsai.aims.screen.customer.controller;
 
-import javax.naming.LimitExceededException;
+ 
 import javax.swing.JOptionPane;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.LimitExceededException;
 import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
