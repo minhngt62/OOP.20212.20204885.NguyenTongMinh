@@ -1,14 +1,24 @@
 package hust.soict.dsai.aims.screen.customer.controller;
 
+import java.io.IOException;
 import java.util.Collections;
 
+import javax.swing.JOptionPane;
+
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
+import hust.soict.dsai.aims.store.Store;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -17,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class CartController {
 	@FXML
@@ -35,7 +46,7 @@ public class CartController {
     private TableColumn<Media, Integer> colMediaId;
 
     @FXML
-    private Label cosrLabel;
+    private Label costLabel;
 
     @FXML
     private TableColumn<Media, Float> colMediaCost;
@@ -56,8 +67,10 @@ public class CartController {
     private TableColumn<Media, String> colMediaCategory;
     
     private Cart cart;
-    public CartController(Cart cart) {
+    private Store store;
+    public CartController(Cart cart, Store store) {
     	this.cart = cart;
+    	this.store = store;
     }
     
     @FXML
@@ -92,6 +105,7 @@ public class CartController {
     			showFilteredMedia(newValue);
     		}
     	});
+    	costLabel.setText(cart.totalCost() + " $");
     }
     
     void updateButtonBar(Media media) {
@@ -112,6 +126,15 @@ public class CartController {
 
     @FXML
     void btnPlayPressed(ActionEvent event) {
+    	try {
+    		Media media = tblMedia.getSelectionModel().getSelectedItem();
+        	Alert alert = new Alert(Alert.AlertType.INFORMATION, ((Playable) media).play().toString());
+            alert.showAndWait();
+    	} catch (PlayerException e) {
+    		e.printStackTrace();
+    		Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+    	}
     	
     }
 
@@ -119,10 +142,36 @@ public class CartController {
     void btnRemovePressed(ActionEvent event) {
     	Media media = tblMedia.getSelectionModel().getSelectedItem();
     	cart.removeMedia(media);
+    	costLabel.setText(cart.totalCost() + " $");
     }
 
     @FXML
     void btnViewStorePressed(ActionEvent event) {
+    	try {
+			final String STORE_FXML_FILE_PATH = "/hust/soict/dsai/aims/screen/customer/view/Store.fxml";
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(STORE_FXML_FILE_PATH));
+			fxmlLoader.setController(new ViewStoreController(cart, store));
+			Parent root = fxmlLoader.load();
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Store");
+			stage.show(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+    void placeOrderClicked(ActionEvent event) {
+    	Media luckyItem = cart.getALuckyItem();
+    	if (luckyItem != null) {
+    		costLabel.setText(cart.totalCost() + " $");
+    		Alert alert = new Alert(Alert.AlertType.INFORMATION, "You got " + luckyItem.toString() + " as a lucky item.\n" + "The total cost is " + cart.totalCost() + " $");
+            alert.showAndWait();
+    	}
+    	cart = new Cart();
+    	costLabel.setText(cart.totalCost() + " $");
+    	tblMedia.setItems(null);
     	
     }
     

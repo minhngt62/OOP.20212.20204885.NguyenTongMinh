@@ -1,5 +1,9 @@
 package hust.soict.dsai.aims.cart;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
+import javax.naming.LimitExceededException;
+
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,29 +27,33 @@ public class Cart {
 		return itemsOrdered;
 	}
 	
-	public int addMedia(Media media) {
+	public int addMedia(Media media) throws LimitExceededException {
 		if (itemsOrdered.size() <  MAX_NUMBERS_ORDERED) {
 			itemsOrdered.add(media);
 			System.out.println("The media has been added to the cart");
 			return 1;
+		} else {
+			throw new LimitExceededException("ERROR: The cart is almost full"); 
 		}
-		System.out.println("The cart is almost full");
-		return 0;
 	}
-	public int addMedia(Media media1, Media media2) {
+	public int addMedia(Media media1, Media media2) throws LimitExceededException {
 		int countAdded = 0;
-		countAdded += addMedia(media1);
-		countAdded += addMedia(media2);
-		return countAdded;
+		try {
+			countAdded += addMedia(media1);
+			countAdded += addMedia(media2);
+		} catch (LimitExceededException e) {
+			throw e;
+		}
+		
+		return countAdded;		
 	}
-	public int addMedia(ArrayList<Media> medias) {
+	public int addMedia(ArrayList<Media> medias) throws LimitExceededException {
 		int countAdded = 0;
 		for (int i=0; i<medias.size(); i++) {
-			int isAdded = addMedia(medias.get(i));
-			if (isAdded == 0) {
-				return countAdded;
-			} else {
-				countAdded += isAdded;
+			try {
+				countAdded += addMedia(medias.get(i));
+			} catch (LimitExceededException e) {
+				throw e;
 			}
 		}
 		return countAdded;
@@ -117,9 +125,10 @@ public class Cart {
 	public void playMedia(String title) {
 		for (Media d : itemsOrdered) {
 			if (d.getTitle().equals(title)) {
-				if (d instanceof Playable) {
+				try {
 					((Playable)d).play();
-					break;
+				} catch (PlayerException e) {
+					e.printStackTrace();
 				}
 			}
 		}

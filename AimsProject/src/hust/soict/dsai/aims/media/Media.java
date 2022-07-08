@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public abstract class Media implements Comparable<Media>{
 	private int id;
-	private String title;
+	String title; //for testing parameter
 	private String category;
 	private float cost;
 	private LocalDate dateAdded;
@@ -54,10 +54,13 @@ public abstract class Media implements Comparable<Media>{
 	}
 	
 	public boolean equals(Object o) {
-		if (o instanceof Media) {
+		try {
 			return ((Media)o).getId() == this.id;
+		} catch (NullPointerException e) {
+			return false;
+		} catch (ClassCastException e1) {
+			return false;
 		}
-		return false;
 		
 	}
 	
@@ -77,11 +80,15 @@ public abstract class Media implements Comparable<Media>{
 	}
 	
 	public int compareTo(Media d) {
-		int titleDiff = this.getTitle().compareTo(d.getTitle());
-		if (titleDiff != 0) {
-			return titleDiff;
-		} else {
-			return this.getCategory().compareTo(d.getCategory());
+		try {
+			int titleDiff = this.getTitle().compareTo(d.getTitle());
+			if (titleDiff != 0) {
+				return titleDiff;
+			} else {
+				return this.getCategory().compareTo(d.getCategory());
+			}
+		} catch (NullPointerException e) {
+			return -1; // null is before all others
 		}
 	}
 	

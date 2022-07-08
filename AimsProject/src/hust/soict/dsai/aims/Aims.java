@@ -1,10 +1,17 @@
 package hust.soict.dsai.aims;
-import hust.soict.dsai.aims.cart.Cart; 
+import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.naming.LimitExceededException;
+import javax.swing.JOptionPane;
+
 import hust.soict.dsai.aims.utils.*;
+import javafx.collections.ObservableList;
+
 import java.lang.Thread;
 
 public class Aims {
@@ -77,8 +84,13 @@ public class Aims {
 						System.out.println("Add that media to your cart? (Y/N): ");
 						String addOption = user.next();
 						if (addOption.equals("Y")) {
-							cart.addMedia(dvd);
-							break;
+							try {
+								cart.addMedia(dvd);
+								break;
+							} catch (LimitExceededException e) {
+								e.printStackTrace();
+								System.out.println(e.getMessage());
+							}
 						} else if (addOption.equals("N")) {
 							break;
 						} else {
@@ -100,7 +112,12 @@ public class Aims {
 					if (dvd == null) {
 						System.out.println("Invalid title!");
 					} else {
-						cart.addMedia(dvd);
+						try {
+							cart.addMedia(dvd);
+						} catch (LimitExceededException e) {
+							e.printStackTrace();
+							System.out.println(e.getMessage());
+						}
 					}
 					//back to store menu
 					System.out.println("Insert any key to continue...");
@@ -160,7 +177,7 @@ public class Aims {
 						} 
 						
 						else if (sortOption == 1) {
-							MediaUtils.sortByTitleCost(cart.getItemsOrdered());
+							MediaUtils.sortByTitleCost((ArrayList<Media>) cart.getItemsOrdered());
 							cart.print();
 							//back to sort menu
 							System.out.println("Insert any key to continue...");
@@ -168,7 +185,7 @@ public class Aims {
 						} 
 						
 						else if (sortOption == 2) {
-							MediaUtils.sortByCostTitle(cart.getItemsOrdered());
+							MediaUtils.sortByCostTitle((ArrayList<Media>) cart.getItemsOrdered());
 							cart.print();
 							//back to sort menu
 							System.out.println("Insert any key to continue...");
@@ -180,7 +197,7 @@ public class Aims {
 						System.out.println("Insert the title: ");
 						user.nextLine(); //consume blank
 						String title = user.nextLine();
-						ArrayList<Media> cartDVDs = cart.getItemsOrdered();
+						ObservableList<Media> cartDVDs = cart.getItemsOrdered();
 						for (Media d : cartDVDs) {
 							if (d.getTitle().equals(title)) {
 								cart.removeMedia(d);
@@ -219,7 +236,12 @@ public class Aims {
 					System.out.println("Insert the title: ");
 					user.nextLine(); //consume blank
 					String title = user.nextLine();
-					store.playMedia(title);
+					try {
+						store.playMedia(title);
+					} catch (PlayerException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), e.toString(), JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
 					//back to cart menu
 					System.out.println("Insert any key to continue...");
 					user.next(); //wait for the user
@@ -323,7 +345,7 @@ public class Aims {
 					} 
 					
 					else if (sortOption == 1) {
-						MediaUtils.sortByTitleCost(cart.getItemsOrdered());
+						MediaUtils.sortByTitleCost((ArrayList<Media>) cart.getItemsOrdered());
 						cart.print();
 						//back to sort menu
 						System.out.println("Insert any key to continue...");
@@ -331,7 +353,7 @@ public class Aims {
 					} 
 					
 					else if (sortOption == 2) {
-						MediaUtils.sortByCostTitle(cart.getItemsOrdered());
+						MediaUtils.sortByCostTitle((ArrayList<Media>) cart.getItemsOrdered());
 						cart.print();
 						//back to sort menu
 						System.out.println("Insert any key to continue...");
@@ -343,7 +365,7 @@ public class Aims {
 					System.out.println("Insert the title: ");
 					user.nextLine(); //consume blank
 					String title = user.nextLine();
-					ArrayList<Media> cartDVDs = cart.getItemsOrdered();
+					ObservableList<Media> cartDVDs = cart.getItemsOrdered();
 					for (Media d : cartDVDs) {
 						if (d.getTitle().equals(title)) {
 							cart.removeMedia(d);
