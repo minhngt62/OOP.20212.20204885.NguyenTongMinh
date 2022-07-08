@@ -1,4 +1,5 @@
 package hust.soict.dsai.aims.store;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import java.util.ArrayList;
 
@@ -48,13 +49,15 @@ public class Store {
 		return null;
 	}
 	
-	public void playMedia(String title) {
+	public void playMedia(String title) throws PlayerException {
 		for (Media d : itemsInStore) {
 			if (d.getTitle().equals(title)) {
-				if (d instanceof Playable) {
+				try {
 					((Playable)d).play();
 					break;
-				}
+				} catch (PlayerException e) {
+					throw e;
+				}	
 			}
 		}
 	}
